@@ -123,3 +123,35 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+/*-------------------------------------------------------------------------------------------
+-----------------------------------------SWIPER---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const swiperPromotion = new Swiper(".swiper-promotion", {
+  direction: "horizontal",
+  loop: false,
+
+  pagination: {
+    el: ".swiper-promotion__pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-promotion__button-next",
+    prevEl: ".swiper-promotion__button-prev",
+  },
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: true,
+  },
+  speed: 600,
+  slidesPerView: 1.07,
+  spaceBetween: 15,
+
+  breakpoints: {
+    799: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+  },
+});
