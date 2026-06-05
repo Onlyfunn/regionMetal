@@ -716,6 +716,7 @@ div[class*="__container"] {
   &__input {
     width: 100%;
     padding: 17px 20px;
+    -webkit-text-size-adjust: 100%;
     @media (max-width: $lg) {
       padding: 10px 15px;
       font-size: 12px;

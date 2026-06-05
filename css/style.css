@@ -668,6 +668,7 @@ div[class*=__container] {
 .search__input {
   width: 100%;
   padding: 17px 20px;
+  -webkit-text-size-adjust: 100%;
 }
 @media (max-width: 1022px) {
   .search__input {
