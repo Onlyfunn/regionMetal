@@ -32,7 +32,7 @@ const isMobile = {
 };
 
 /*-------------------------------------------------------------------------------------------
----------------------------------ВЛОЖЕННЫЕ СПИСКИ В ШАПКЕ И ДОБАВЛЕНИЕ КЛАССА BODY---------------------------------------------
+---------ВЛОЖЕННЫЕ СПИСКИ В ШАПКЕ И ДОБАВЛЕНИЕ КЛАССА BODY-----------------------------------
 -------------------------------------------------------------------------------------------*/
 
 let menuArrows = document.querySelectorAll(".menu-header-bottom__arrow");
@@ -89,4 +89,37 @@ document.addEventListener("click", function (e) {
     return;
   }
   results.classList.remove("_active");
+});
+
+/*-------------------------------------------------------------------------------------------
+-----------------------------------------МЕНЮ БУРГЕР---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const iconMenu = document.querySelector(".header__burger-icon");
+const menuBody = document.querySelector(".burger-menu");
+
+if (iconMenu) {
+  iconMenu.addEventListener("click", function (e) {
+    document.body.classList.toggle("_lock");
+    iconMenu.classList.toggle("_active");
+    menuBody.classList.toggle("_active");
+  });
+}
+
+/*-------------------------------------------------------------------------------------------
+---------------------------------ЗАКРЫТИЕ ПО НАЖАТИЮ В ПРАВОЙ ЧАСТИ------------------------------
+-------------------------------------------------------------------------------------------*/
+
+document.addEventListener("click", function (e) {
+  if (iconMenu.contains(e.target)) return;
+  if (menuBody.classList.contains("_active")) {
+    const clickX = e.clientX;
+    if (clickX / window.innerWidth > 0.6) {
+      document.body.classList.remove("_lock");
+      iconMenu.classList.remove("_active");
+      menuBody.classList.remove("_active");
+      menuBody.style.left = "";
+      menuBody.style.transition = "";
+    }
+  }
 });
