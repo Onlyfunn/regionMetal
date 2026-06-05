@@ -936,6 +936,14 @@ div[class*=__container] {
 .swiper-promotion__pagination .swiper-pagination-bullet {
   margin: 0 7.5px !important;
   transition: all 0.2s ease;
+}
+@media (hover: hover) {
+  .swiper-promotion__pagination .swiper-pagination-bullet:hover {
+    border-color: #ffa600;
+    background-color: #ffa600;
+  }
+}
+.swiper-promotion__pagination .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   border: 1px #fff solid;
@@ -974,6 +982,20 @@ div[class*=__container] {
   background-color: #c70000;
   mask: url(../img/header/arrow.svg) no-repeat center/100% 100%;
   -webkit-mask: url(../img/header/arrow.svg) no-repeat center/100% 100%;
+}
+@media (hover: hover) {
+  .swiper-promotion__button-next:hover, .swiper-promotion__button-prev:hover {
+    background-color: transparent;
+    opacity: 1;
+  }
+  .swiper-promotion__button-next:hover:before, .swiper-promotion__button-prev:hover:before {
+    content: "";
+    width: 15.5px;
+    height: 15.5px;
+    background-color: #fff;
+    mask: url(../img/header/arrow.svg) no-repeat center/100% 100%;
+    -webkit-mask: url(../img/header/arrow.svg) no-repeat center/100% 100%;
+  }
 }
 .swiper-promotion__button-next.swiper-button-disabled, .swiper-promotion__button-prev.swiper-button-disabled {
   background-color: transparent;

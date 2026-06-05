@@ -988,7 +988,12 @@ div[class*="__container"] {
     .swiper-pagination-bullet {
       margin: 0 7.5px !important;
       transition: all 0.2s ease;
-
+      @media (hover: hover) {
+        &:hover {
+          border-color: #ffa600;
+          background-color: #ffa600;
+        }
+      }
       width: 10px;
       height: 10px;
       border: 1px #fff solid;
@@ -1034,7 +1039,20 @@ div[class*="__container"] {
       mask: url(../img/header/arrow.svg) no-repeat center / 100% 100%;
       -webkit-mask: url(../img/header/arrow.svg) no-repeat center / 100% 100%;
     }
-
+    @media (hover: hover) {
+      &:hover {
+        background-color: transparent;
+        opacity: 1;
+        &:before {
+          content: "";
+          width: 15.5px;
+          height: 15.5px;
+          background-color: #fff;
+          mask: url(../img/header/arrow.svg) no-repeat center / 100% 100%;
+          -webkit-mask: url(../img/header/arrow.svg) no-repeat center / 100% 100%;
+        }
+      }
+    }
     &.swiper-button-disabled {
       background-color: transparent;
       opacity: 1;
