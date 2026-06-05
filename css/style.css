@@ -784,7 +784,11 @@ div[class*=__container] {
 .swiper-promotion {
   width: 100%;
   height: 500px;
-  border-radius: 30px;
+}
+@media (min-width: 798px) {
+  .swiper-promotion {
+    border-radius: 30px;
+  }
 }
 @media (max-width: 1330px) {
   .swiper-promotion {
