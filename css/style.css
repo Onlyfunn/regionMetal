@@ -1157,7 +1157,7 @@ div[class*=__container] {
   background-color: #fff;
 }
 .products._catalog .body-products__outer {
-  display: block;
+  display: flex;
 }
 @media (max-width: 1022px) {
   .products {

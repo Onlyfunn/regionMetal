@@ -1209,7 +1209,7 @@ div[class*="__container"] {
   &._catalog {
     background-color: #fff;
     .body-products__outer {
-      display: block;
+      display: flex;
     }
   }
   @media (max-width: $lg) {
