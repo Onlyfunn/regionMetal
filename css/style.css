@@ -737,7 +737,7 @@ div[class*=__container] {
 }
 .search__results-body {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   top: 100%;
   margin-top: 10px;
   width: 100%;
