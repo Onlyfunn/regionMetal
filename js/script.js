@@ -164,3 +164,63 @@ const swiperPromotion = new Swiper(".swiper-promotion", {
     },
   },
 });
+
+/*-------------------------------------------------------------------------------------------
+-----------------------------------------MASK---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+var element = document.querySelector(".form-contact__tel");
+var maskOptions = {
+  mask: "+7 (900) 000-00-00",
+  lazy: true,
+};
+var mask = new IMask(element, maskOptions);
+
+/*-------------------------------------------------------------------------------------------
+-------------------------------------------FORM CONTACT------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const formContact = document.querySelector(".form-contact");
+const submit = document.querySelector(".form-contact__submit");
+
+for (let item of formContact.querySelectorAll("input, textarea")) {
+  item.addEventListener("input", function (e) {
+    item.classList.remove("_empty", "_incorrect");
+  });
+}
+
+submit.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (checkCorrect()) {
+    formContact.submit();
+  }
+});
+
+function checkCorrect() {
+  let itemsCorrect = 0;
+  for (let item of formContact.querySelectorAll("input[required]")) {
+    if (
+      item.hasAttribute("required") &&
+      (item.value == "" || (item.type === "checkbox" && !item.checked))
+    ) {
+      item.classList.add("_empty");
+    } else if (
+      (item.classList.contains("form-contact__tel") &&
+        item.value.length != 18) ||
+      (item.classList.contains("form-contact__email") &&
+        regex.test(item.value) == false)
+    ) {
+      item.classList.add("_incorrect");
+    } else {
+      itemsCorrect += 1;
+    }
+  }
+  if (itemsCorrect == 3) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
