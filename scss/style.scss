@@ -1114,6 +1114,10 @@ div[class*="__container"] {
 .about {
   // .about__container
   padding: 30px 0px 50px;
+  scroll-margin-top: calc(50vh - 150px);
+  @media (max-width: $lg) {
+    scroll-margin-top: calc(50vh - 200px);
+  }
 
   &__container {
     display: grid;
@@ -1256,6 +1260,13 @@ div[class*="__container"] {
     border-radius: 20px;
     overflow: hidden;
     background-color: #f6f6f6;
+    @media (hover: hover) {
+      &:hover {
+        .body-products__image {
+          transform: scale(1.1);
+        }
+      }
+    }
     @media (max-width: $lg) {
       border-radius: 15px;
     }
@@ -1338,6 +1349,7 @@ div[class*="__container"] {
 
   &__image {
     z-index: -2;
+    transition: all 0.2s ease;
   }
 
   // .body-catalog__title
@@ -1594,6 +1606,14 @@ div[class*="__container"] {
       min-width: 0px;
       padding: 10px 10px 10px 20px;
     }
+    @media (max-width: $sm) {
+      right: -10px;
+      bottom: -20px;
+      border-radius: 10px;
+      height: auto;
+      min-width: 0px;
+      padding: 8px 8px 8px 16px;
+    }
   }
 
   &__coat-num {
@@ -1604,6 +1624,9 @@ div[class*="__container"] {
     @media (max-width: $lg) {
       font-size: 42px;
     }
+    @media (max-width: $sm) {
+      font-size: 36px;
+    }
   }
 
   &__coat-text {
@@ -1612,6 +1635,9 @@ div[class*="__container"] {
     text-transform: uppercase;
     @media (max-width: $lg) {
       font-size: 12px;
+    }
+    @media (max-width: $sm) {
+      font-size: 10px;
     }
   }
 

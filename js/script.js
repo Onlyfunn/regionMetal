@@ -97,12 +97,21 @@ document.addEventListener("click", function (e) {
 
 const iconMenu = document.querySelector(".header__burger-icon");
 const menuBody = document.querySelector(".burger-menu");
+const menuLinks = menuBody.querySelectorAll("a");
 
 if (iconMenu) {
   iconMenu.addEventListener("click", function (e) {
     document.body.classList.toggle("_lock");
     iconMenu.classList.toggle("_active");
     menuBody.classList.toggle("_active");
+  });
+}
+
+for (let item of menuLinks) {
+  item.addEventListener("click", function (e) {
+    document.body.classList.remove("_lock");
+    iconMenu.classList.remove("_active");
+    menuBody.classList.remove("_active");
   });
 }
 
