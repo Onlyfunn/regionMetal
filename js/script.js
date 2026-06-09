@@ -105,14 +105,14 @@ if (iconMenu) {
     iconMenu.classList.toggle("_active");
     menuBody.classList.toggle("_active");
   });
-}
 
-for (let item of menuLinks) {
-  item.addEventListener("click", function (e) {
-    document.body.classList.remove("_lock");
-    iconMenu.classList.remove("_active");
-    menuBody.classList.remove("_active");
-  });
+  for (let item of menuLinks) {
+    item.addEventListener("click", function (e) {
+      document.body.classList.remove("_lock");
+      iconMenu.classList.remove("_active");
+      menuBody.classList.remove("_active");
+    });
+  }
 }
 
 /*-------------------------------------------------------------------------------------------
@@ -170,11 +170,13 @@ const swiperPromotion = new Swiper(".swiper-promotion", {
 -------------------------------------------------------------------------------------------*/
 
 var element = document.querySelector(".form-contact__tel");
-var maskOptions = {
-  mask: "+7 (900) 000-00-00",
-  lazy: true,
-};
-var mask = new IMask(element, maskOptions);
+if (element) {
+  var maskOptions = {
+    mask: "+7 (900) 000-00-00",
+    lazy: true,
+  };
+  var mask = new IMask(element, maskOptions);
+}
 
 /*-------------------------------------------------------------------------------------------
 -------------------------------------------FORM CONTACT------------------------------------------
@@ -183,44 +185,62 @@ var mask = new IMask(element, maskOptions);
 const formContact = document.querySelector(".form-contact");
 const submit = document.querySelector(".form-contact__submit");
 
-for (let item of formContact.querySelectorAll("input, textarea")) {
-  item.addEventListener("input", function (e) {
-    item.classList.remove("_empty", "_incorrect");
-  });
-}
-
-submit.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  if (checkCorrect()) {
-    formContact.submit();
+if (formContact) {
+  for (let item of formContact.querySelectorAll("input, textarea")) {
+    item.addEventListener("input", function (e) {
+      item.classList.remove("_empty", "_incorrect");
+    });
   }
-});
 
-function checkCorrect() {
-  let itemsCorrect = 0;
-  for (let item of formContact.querySelectorAll("input[required]")) {
-    if (
-      item.hasAttribute("required") &&
-      (item.value == "" || (item.type === "checkbox" && !item.checked))
-    ) {
-      item.classList.add("_empty");
-    } else if (
-      (item.classList.contains("form-contact__tel") &&
-        item.value.length != 18) ||
-      (item.classList.contains("form-contact__email") &&
-        regex.test(item.value) == false)
-    ) {
-      item.classList.add("_incorrect");
+  submit.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (checkCorrect()) {
+      formContact.submit();
+    }
+  });
+
+  function checkCorrect() {
+    let itemsCorrect = 0;
+    for (let item of formContact.querySelectorAll("input[required]")) {
+      if (
+        item.hasAttribute("required") &&
+        (item.value == "" || (item.type === "checkbox" && !item.checked))
+      ) {
+        item.classList.add("_empty");
+      } else if (
+        (item.classList.contains("form-contact__tel") &&
+          item.value.length != 18) ||
+        (item.classList.contains("form-contact__email") &&
+          regex.test(item.value) == false)
+      ) {
+        item.classList.add("_incorrect");
+      } else {
+        itemsCorrect += 1;
+      }
+    }
+    if (itemsCorrect == 3) {
+      return true;
     } else {
-      itemsCorrect += 1;
+      return false;
     }
   }
-  if (itemsCorrect == 3) {
-    return true;
-  } else {
-    return false;
-  }
+
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 }
 
-const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/*-------------------------------------------------------------------------------------------
+---------------------------CATEGORIES SHOW MORE---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const buttonCategoriesShowMore = document.querySelector(
+  ".categories__show-more",
+);
+
+const bodyCategories = document.querySelector(".categories__body");
+
+if (buttonCategoriesShowMore) {
+  buttonCategoriesShowMore.addEventListener("click", function (e) {
+    bodyCategories.classList.toggle("_show");
+  });
+}
