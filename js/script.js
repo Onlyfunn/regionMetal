@@ -293,6 +293,35 @@ if (swiperGoods) {
   const swiperGoodsSlider = document.querySelector(".swiper-goods");
   const swiperGoodsSlide = document.querySelector(".swiper-goods__slide");
   const swiperGoodsWrapper = document.querySelector(".swiper-goods__wrapper");
+
+  function scrollToSwiperGoods() {
+    const slider = document.querySelector(".swiper-goods");
+    if (slider) {
+      slider.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }
+
+  document.addEventListener("click", function (e) {
+    // Клик на буллете пагинации
+    if (
+      e.target.closest(".swiper-goods__pagination .swiper-pagination-bullet")
+    ) {
+      // Небольшая задержка, чтобы Swiper успел переключить слайд
+      setTimeout(scrollToSwiperGoods, 100);
+    }
+
+    // Клик на кнопках навигации
+    if (
+      e.target.closest(".swiper-goods__button-prev") ||
+      e.target.closest(".swiper-goods__button-next")
+    ) {
+      setTimeout(scrollToSwiperGoods, 100);
+    }
+  });
+
   let swiperGoodsHeight;
   let swiperGoodsSlideLength;
   addSlides();
