@@ -244,3 +244,132 @@ if (buttonCategoriesShowMore) {
     bodyCategories.classList.toggle("_show");
   });
 }
+
+/*-------------------------------------------------------------------------------------------
+--------------------------------------SWIPER GOODS---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const swiperGoods = new Swiper(".swiper-goods", {
+  spaceBetween: 20,
+
+  pagination: {
+    el: ".swiper-goods__pagination",
+    clickable: true,
+
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + "</span>";
+    },
+  },
+  navigation: {
+    nextEl: ".swiper-goods__button-next",
+    prevEl: ".swiper-goods__button-prev",
+  },
+  slidesPerView: 2,
+  slidesPerGroup: 2,
+  spaceBetween: 5,
+  grid: {
+    rows: 2,
+  },
+  breakpoints: {
+    799: {
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+      spaceBetween: 10,
+    },
+    1023: {
+      spaceBetween: 15,
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+    },
+    1331: {
+      slidesPerView: 4,
+      slidesPerGroup: 4,
+      spaceBetween: 20,
+    },
+  },
+});
+
+if (swiperGoods) {
+  const swiperGoodsSlider = document.querySelector(".swiper-goods");
+  const swiperGoodsSlide = document.querySelector(".swiper-goods__slide");
+  const swiperGoodsWrapper = document.querySelector(".swiper-goods__wrapper");
+  let swiperGoodsHeight;
+  let swiperGoodsSlideLength;
+  addSlides();
+
+  calculateSwiperGoodsHeight();
+  const swiperGoodsShowMore = document.querySelector(".swiper-goods__button");
+  swiperGoodsShowMore.addEventListener("click", function (e) {
+    for (let i of document.querySelectorAll(".added-slide")) {
+      i.remove();
+    }
+    swiperGoodsShow(2);
+  });
+  function calculateSwiperGoodsHeight() {
+    swiperGoodsHeight =
+      parseInt(getComputedStyle(swiperGoodsSlide).minHeight) *
+        swiperGoods.params.grid.rows +
+      swiperGoods.params.spaceBetween * (swiperGoods.params.grid.rows - 1);
+    swiperGoodsSlider.style.height = `${swiperGoodsHeight}px`;
+    swiperGoodsSlideLength = document.querySelectorAll(
+      ".swiper-goods__slide",
+    ).length;
+    addSlides();
+  }
+
+  function swiperGoodsShow(quantity) {
+    if (
+      swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView +
+        swiperGoods.params.slidesPerView * quantity <=
+      swiperGoodsSlideLength + swiperGoods.params.slidesPerView * (quantity - 1)
+    ) {
+      swiperGoods.params.grid.rows += quantity;
+      calculateSwiperGoodsHeight();
+      if (
+        swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView +
+          swiperGoods.params.slidesPerView * quantity >=
+        swiperGoodsSlideLength +
+          swiperGoods.params.slidesPerView * (quantity - 1)
+      ) {
+        swiperGoodsShowMore.style.display = "none";
+      }
+    } else {
+      swiperGoodsShowMore.style.display = "none";
+    }
+  }
+  function addSlides() {
+    if (
+      swiperGoodsSlideLength %
+        (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView) !=
+      0
+    ) {
+      console.log(
+        swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView,
+        swiperGoodsSlideLength,
+        swiperGoodsSlideLength %
+          (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView),
+      );
+
+      for (
+        let i = 0;
+        i <
+        swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView -
+          (swiperGoodsSlideLength %
+            (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView));
+        i++
+      ) {
+        console.log(
+          swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView -
+            (swiperGoodsSlideLength %
+              (swiperGoods.params.grid.rows *
+                swiperGoods.params.slidesPerView)),
+        );
+
+        swiperGoodsWrapper.insertAdjacentHTML(
+          "beforeend",
+          '<div class="swiper-goods__slide slide-goods swiper-slide added-slide"></div>',
+        );
+      }
+    }
+  }
+}
