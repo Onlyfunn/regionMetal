@@ -372,13 +372,6 @@ if (swiperGoods) {
         (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView) !=
       0
     ) {
-      console.log(
-        swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView,
-        swiperGoodsSlideLength,
-        swiperGoodsSlideLength %
-          (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView),
-      );
-
       for (
         let i = 0;
         i <
@@ -387,17 +380,48 @@ if (swiperGoods) {
             (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView));
         i++
       ) {
-        console.log(
-          swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView -
-            (swiperGoodsSlideLength %
-              (swiperGoods.params.grid.rows *
-                swiperGoods.params.slidesPerView)),
-        );
-
         swiperGoodsWrapper.insertAdjacentHTML(
           "beforeend",
           '<div class="swiper-goods__slide slide-goods swiper-slide added-slide"></div>',
         );
+      }
+    }
+  }
+
+  swiperGoodsBulletsCalculate();
+  swiperGoods.on("slideChange", swiperGoodsBulletsCalculate);
+
+  function swiperGoodsBulletsCalculate() {
+    const swiperGoodsBullets = document.querySelector(
+      ".swiper-goods__pagination",
+    ).children;
+    let swiperGoodsBulletsGroups = Math.ceil(swiperGoodsSlideLength / 3);
+    let swiperGoodsBulletsIndexActive =
+      Array.from(swiperGoodsBullets).findIndex((bullet) =>
+        bullet.classList.contains("swiper-pagination-bullet-active"),
+      ) + 1;
+    let swiperGoodsBulletsGroup = Math.ceil(swiperGoodsBulletsIndexActive / 3);
+    for (let i = 0; i < swiperGoodsBullets.length; i++) {
+      swiperGoodsBullets[i].style.display = "none";
+      swiperGoodsBullets[i].classList.remove("_dotted");
+
+      if (
+        swiperGoodsBulletsGroup * 3 - 3 <= i &&
+        i <= swiperGoodsBulletsGroup * 3
+      ) {
+        swiperGoodsBullets[i].style.display = "inline-flex";
+      }
+    }
+    let i = 0;
+    for (let bullet of swiperGoodsBullets) {
+      if (i == 3) {
+        bullet.classList.add("_dotted");
+
+        break;
+      }
+
+      if (bullet.style.display == "inline-flex") {
+        i += 1;
       }
     }
   }
