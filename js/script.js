@@ -294,134 +294,141 @@ if (swiperGoods) {
   const swiperGoodsSlide = document.querySelector(".swiper-goods__slide");
   const swiperGoodsWrapper = document.querySelector(".swiper-goods__wrapper");
 
-  function scrollToSwiperGoods() {
-    const slider = document.querySelector(".swiper-goods");
-    if (slider) {
-      slider.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }
-
-  document.addEventListener("click", function (e) {
-    // Клик на буллете пагинации
-    if (
-      e.target.closest(".swiper-goods__pagination .swiper-pagination-bullet")
-    ) {
-      // Небольшая задержка, чтобы Swiper успел переключить слайд
-      setTimeout(scrollToSwiperGoods, 100);
+  if (!swiperGoodsSlide || !swiperGoodsSlider || !swiperGoodsWrapper) {
+  } else {
+    function scrollToSwiperGoods() {
+      const slider = document.querySelector(".swiper-goods");
+      if (slider) {
+        slider.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     }
 
-    // Клик на кнопках навигации
-    if (
-      e.target.closest(".swiper-goods__button-prev") ||
-      e.target.closest(".swiper-goods__button-next")
-    ) {
-      setTimeout(scrollToSwiperGoods, 100);
-    }
-  });
+    document.addEventListener("click", function (e) {
+      // Клик на буллете пагинации
+      if (
+        e.target.closest(".swiper-goods__pagination .swiper-pagination-bullet")
+      ) {
+        // Небольшая задержка, чтобы Swiper успел переключить слайд
+        setTimeout(scrollToSwiperGoods, 0);
+      }
 
-  let swiperGoodsHeight;
-  let swiperGoodsSlideLength;
-  addSlides();
+      // Клик на кнопках навигации
+      if (
+        e.target.closest(".swiper-goods__button-prev") ||
+        e.target.closest(".swiper-goods__button-next")
+      ) {
+        setTimeout(scrollToSwiperGoods, 100);
+      }
+    });
 
-  calculateSwiperGoodsHeight();
-  const swiperGoodsShowMore = document.querySelector(".swiper-goods__button");
-  swiperGoodsShowMore.addEventListener("click", function (e) {
-    for (let i of document.querySelectorAll(".added-slide")) {
-      i.remove();
-    }
-    swiperGoodsShow(2);
-  });
-  function calculateSwiperGoodsHeight() {
-    swiperGoodsHeight =
-      parseInt(getComputedStyle(swiperGoodsSlide).minHeight) *
-        swiperGoods.params.grid.rows +
-      swiperGoods.params.spaceBetween * (swiperGoods.params.grid.rows - 1);
-    swiperGoodsSlider.style.height = `${swiperGoodsHeight}px`;
-    swiperGoodsSlideLength = document.querySelectorAll(
-      ".swiper-goods__slide",
-    ).length;
+    let swiperGoodsHeight;
+    let swiperGoodsSlideLength;
     addSlides();
-  }
 
-  function swiperGoodsShow(quantity) {
-    if (
-      swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView +
-        swiperGoods.params.slidesPerView * quantity <=
-      swiperGoodsSlideLength + swiperGoods.params.slidesPerView * (quantity - 1)
-    ) {
-      swiperGoods.params.grid.rows += quantity;
-      calculateSwiperGoodsHeight();
+    calculateSwiperGoodsHeight();
+    const swiperGoodsShowMore = document.querySelector(".swiper-goods__button");
+    swiperGoodsShowMore.addEventListener("click", function (e) {
+      for (let i of document.querySelectorAll(".added-slide")) {
+        i.remove();
+      }
+      swiperGoodsShow(2);
+    });
+    function calculateSwiperGoodsHeight() {
+      swiperGoodsHeight =
+        parseInt(getComputedStyle(swiperGoodsSlide).minHeight) *
+          swiperGoods.params.grid.rows +
+        swiperGoods.params.spaceBetween * (swiperGoods.params.grid.rows - 1);
+      swiperGoodsSlider.style.height = `${swiperGoodsHeight}px`;
+      swiperGoodsSlideLength = document.querySelectorAll(
+        ".swiper-goods__slide",
+      ).length;
+      addSlides();
+    }
+
+    function swiperGoodsShow(quantity) {
       if (
         swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView +
-          swiperGoods.params.slidesPerView * quantity >=
+          swiperGoods.params.slidesPerView * quantity <=
         swiperGoodsSlideLength +
           swiperGoods.params.slidesPerView * (quantity - 1)
       ) {
+        swiperGoods.params.grid.rows += quantity;
+        calculateSwiperGoodsHeight();
+        if (
+          swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView +
+            swiperGoods.params.slidesPerView * quantity >=
+          swiperGoodsSlideLength +
+            swiperGoods.params.slidesPerView * (quantity - 1)
+        ) {
+          swiperGoodsShowMore.style.display = "none";
+        }
+      } else {
         swiperGoodsShowMore.style.display = "none";
       }
-    } else {
-      swiperGoodsShowMore.style.display = "none";
     }
-  }
-  function addSlides() {
-    if (
-      swiperGoodsSlideLength %
-        (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView) !=
-      0
-    ) {
-      for (
-        let i = 0;
-        i <
-        swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView -
-          (swiperGoodsSlideLength %
-            (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView));
-        i++
-      ) {
-        swiperGoodsWrapper.insertAdjacentHTML(
-          "beforeend",
-          '<div class="swiper-goods__slide slide-goods swiper-slide added-slide"></div>',
-        );
-      }
-    }
-  }
-
-  swiperGoodsBulletsCalculate();
-  swiperGoods.on("slideChange", swiperGoodsBulletsCalculate);
-
-  function swiperGoodsBulletsCalculate() {
-    const swiperGoodsBullets = document.querySelector(
-      ".swiper-goods__pagination",
-    ).children;
-    let swiperGoodsBulletsGroups = Math.ceil(swiperGoodsSlideLength / 3);
-    let swiperGoodsBulletsIndexActive =
-      Array.from(swiperGoodsBullets).findIndex((bullet) =>
-        bullet.classList.contains("swiper-pagination-bullet-active"),
-      ) + 1;
-    let swiperGoodsBulletsGroup = Math.ceil(swiperGoodsBulletsIndexActive / 3);
-    for (let i = 0; i < swiperGoodsBullets.length; i++) {
-      swiperGoodsBullets[i].style.display = "none";
-      swiperGoodsBullets[i].classList.remove("_dotted");
-
+    function addSlides() {
       if (
-        swiperGoodsBulletsGroup * 3 - 3 <= i &&
-        i <= swiperGoodsBulletsGroup * 3
+        swiperGoodsSlideLength %
+          (swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView) !=
+        0
       ) {
-        swiperGoodsBullets[i].style.display = "inline-flex";
+        for (
+          let i = 0;
+          i <
+          swiperGoods.params.grid.rows * swiperGoods.params.slidesPerView -
+            (swiperGoodsSlideLength %
+              (swiperGoods.params.grid.rows *
+                swiperGoods.params.slidesPerView));
+          i++
+        ) {
+          swiperGoodsWrapper.insertAdjacentHTML(
+            "beforeend",
+            '<div class="swiper-goods__slide slide-goods swiper-slide added-slide"></div>',
+          );
+        }
       }
     }
-    let i = 0;
-    for (let bullet of swiperGoodsBullets) {
-      if (i == 3) {
-        bullet.classList.add("_dotted");
 
-        break;
+    swiperGoodsBulletsCalculate();
+    swiperGoods.on("slideChange", swiperGoodsBulletsCalculate);
+
+    function swiperGoodsBulletsCalculate() {
+      const swiperGoodsBullets = document.querySelector(
+        ".swiper-goods__pagination",
+      ).children;
+      let swiperGoodsBulletsGroups = Math.ceil(swiperGoodsSlideLength / 3);
+      let swiperGoodsBulletsIndexActive =
+        Array.from(swiperGoodsBullets).findIndex((bullet) =>
+          bullet.classList.contains("swiper-pagination-bullet-active"),
+        ) + 1;
+      let swiperGoodsBulletsGroup = Math.ceil(
+        swiperGoodsBulletsIndexActive / 3,
+      );
+      for (let i = 0; i < swiperGoodsBullets.length; i++) {
+        swiperGoodsBullets[i].style.display = "none";
+        swiperGoodsBullets[i].classList.remove("_dotted");
+
+        if (
+          swiperGoodsBulletsGroup * 3 - 3 <= i &&
+          i <= swiperGoodsBulletsGroup * 3
+        ) {
+          swiperGoodsBullets[i].style.display = "inline-flex";
+        }
       }
+      let i = 0;
+      for (let bullet of swiperGoodsBullets) {
+        if (i == 3) {
+          bullet.classList.add("_dotted");
 
-      if (bullet.style.display == "inline-flex") {
-        i += 1;
+          break;
+        }
+
+        if (bullet.style.display == "inline-flex") {
+          i += 1;
+        }
       }
     }
   }

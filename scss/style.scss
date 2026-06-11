@@ -159,7 +159,7 @@ div[class*="__container"] {
     @media (max-width: $md) {
       display: block;
       z-index: 50;
-      position: fixed;
+      position: absolute;
       top: 20px;
       right: 15px;
       width: 30px;
@@ -2137,7 +2137,7 @@ div[class*="__container"] {
   &__body {
     max-height: 120px;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: all 2s ease;
     &._show {
       max-height: 2000px;
       & + .categories__show-more {
@@ -2251,9 +2251,7 @@ div[class*="__container"] {
       right: 0;
       width: 6px;
       height: 6px;
-      border-left: 3px solid #fff;
-      border-right: 3px solid #fff;
-      border-top: 6px solid #000;
+      background: url(../img/products/arrow.svg) no-repeat center center/ 100% 100%;
       transition: all 0.2s ease;
     }
   }
@@ -2294,6 +2292,13 @@ div[class*="__container"] {
     color: $blueColor;
     opacity: 1;
     transition: all 0.2s ease;
+    @media (max-width: $sm) {
+      min-width: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
     @media (hover: hover) {
       &:hover {
         background-color: $blueColor;
@@ -2379,8 +2384,10 @@ div[class*="__container"] {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    overflow-x: auto;
     max-width: 100%;
+    @media (max-width: $sm) {
+      gap: 4px;
+    }
   }
 
   // .swiper-goods__button-next
@@ -2395,6 +2402,12 @@ div[class*="__container"] {
     align-items: center;
     justify-content: space-between;
     margin-top: 60px;
+    @media (max-width: $lg) {
+      margin-top: 40px;
+    }
+    @media (max-width: $sm) {
+      margin-top: 20px;
+    }
   }
 
   // .swiper-goods__buttons
@@ -2403,6 +2416,9 @@ div[class*="__container"] {
     display: flex;
     align-items: center;
     gap: 10px;
+    @media (max-width: $sm) {
+      gap: 4px;
+    }
   }
 
   // .swiper-goods__button-prev
@@ -2451,8 +2467,8 @@ div[class*="__container"] {
   display: flex;
   flex-direction: column;
   @media (max-width: $sm) {
-    min-height: 300px;
-    border-radius: 10px;
+    min-height: 280px;
+    border-radius: 6px;
     padding: 10px;
   }
 
@@ -2465,8 +2481,11 @@ div[class*="__container"] {
     margin-bottom: 20px;
     @media (max-width: $sm) {
       height: 100px;
-      border-radius: 10px;
+      border-radius: 6px;
       margin-bottom: 10px;
+    }
+    @media (max-width: 400px) {
+      height: 80px;
     }
   }
 
@@ -2478,6 +2497,7 @@ div[class*="__container"] {
     margin-bottom: 10px;
     @media (max-width: $sm) {
       font-size: 12px;
+      margin-bottom: 8px;
     }
   }
 
@@ -2490,6 +2510,9 @@ div[class*="__container"] {
     span {
       color: #000;
     }
+    @media (max-width: $sm) {
+      margin-bottom: 8px;
+    }
   }
 
   // .slide-goods__footer
@@ -2498,6 +2521,11 @@ div[class*="__container"] {
     display: flex;
     align-items: center;
     margin-top: auto;
+    @media (max-width: $sm) {
+      flex-wrap: wrap;
+      justify-content: left;
+      gap: 10px;
+    }
   }
 
   // .slide-goods__price
@@ -2507,6 +2535,8 @@ div[class*="__container"] {
     color: #000;
     @media (max-width: $sm) {
       font-size: 12px;
+      font-weight: 500;
+      margin-right: auto;
     }
   }
 
@@ -2525,10 +2555,12 @@ div[class*="__container"] {
     align-items: center;
     justify-content: space-between;
     @media (max-width: $sm) {
-      width: 60px;
-      height: 30px;
+      width: 48px;
+      height: 24px;
       padding: 6px;
-      border-radius: 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      margin-left: 0px;
     }
   }
 
@@ -2540,6 +2572,7 @@ div[class*="__container"] {
     text-align: center;
     font-weight: 600;
     cursor: pointer;
+    font-size: 12px;
   }
   &__count-plus {
   }
@@ -2575,6 +2608,7 @@ div[class*="__container"] {
       width: 30px;
       height: 30px;
       border-radius: 6px;
+      margin-left: 0;
       svg {
         width: 14px;
       }
