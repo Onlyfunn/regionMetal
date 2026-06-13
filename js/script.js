@@ -432,4 +432,18 @@ if (swiperGoods) {
       }
     }
   }
+
+  const goodsCount = document.querySelectorAll(".slide-goods__count-count");
+  for (let i of goodsCount) {
+    i.previousElementSibling.addEventListener("click", function (e) {
+      if (parseInt(i.value) + 1 < 100) {
+        i.value = `${parseInt(i.value) + 1}`;
+      }
+    });
+    i.nextElementSibling.addEventListener("click", function (e) {
+      if (parseInt(i.value - 1) >= 0) {
+        i.value = `${parseInt(i.value) - 1}`;
+      }
+    });
+  }
 }
