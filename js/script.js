@@ -447,3 +447,25 @@ if (swiperGoods) {
     });
   }
 }
+
+/*-------------------------------------------------------------------------------------------
+-----------------------------------------TABS---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const tabs = document.querySelector(".tabs");
+if (tabs) {
+  const titlesTabs = document.querySelectorAll(".tabs__title");
+  const textsTabs = document.querySelectorAll(".tabs__text");
+
+  for (let i of titlesTabs) {
+    i.addEventListener("click", function (e) {
+      for (let i = 0; i < titlesTabs.length; i++) {
+        titlesTabs[i].classList.remove("_active");
+        textsTabs[i].classList.remove("_active");
+      }
+      i.classList.add("_active");
+
+      textsTabs[Array.from(titlesTabs).indexOf(i)].classList.add("_active");
+    });
+  }
+}
