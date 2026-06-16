@@ -469,3 +469,15 @@ if (tabs) {
     });
   }
 }
+
+/*-------------------------------------------------------------------------------------------
+---------------------------------MORE CARD INFO---------------------------------------------
+-------------------------------------------------------------------------------------------*/
+
+const cardMore = document.querySelector(".info-card__characteristics-more");
+if (cardMore) {
+  cardMore.addEventListener("click", function (e) {
+    cardMore.previousElementSibling.classList.add("_active");
+    cardMore.style.display = "none";
+  });
+}
